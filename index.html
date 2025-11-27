@@ -47,12 +47,12 @@
           class="flex items-center p-2"
         >
           <img
-            class="w-[120px]"
+            class="w-[120px] max-sm:w-[90px]"
             src="https://bestsoft.az/uploaded/client/pic_365.png"
             alt="LIBRAFF Logo"
           />
         </a>
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center max-sm:max-w-[calc(100%-120px)] space-x-4 max-sm:space-x-0.5">
          <div class="header-catalog-button hidden lg:block hover:cursor-pointer bg-[#dc2626] text-[#ffffff] p-1 rounded-md" onclick="handlePopUp(true)">
   Kataloq
 </div>
@@ -63,7 +63,7 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
 </div>
 
 
-          <div class="relative hidden lg:block w-[400px]">
+          <div class="relative hidden max-sm:block max-sm:w-[120px] max-md:block max-md:w-[200px] max-lg:block max-lg:w-[400px] lg:block w-[400px]">
           <form autocomplete="off">
             <input
               type="text"
@@ -88,7 +88,7 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
               ></path>
             </svg>
           </div>
-          <div class="flex items-center space-x-2 text-gray-600 hidden lg:flex">
+          <div class="items-center space-x-2 text-gray-600 hidden lg:flex">
             <span class="cursor-pointer">AZ</span>
             <svg
               class="w-4 h-4"
@@ -103,7 +103,7 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
               ></path>
             </svg>
           </div>
-          <div class="flex items-center space-x-2 text-gray-600 hidden lg:flex">
+          <div class="items-center space-x-2 text-gray-600 hidden lg:flex">
             <svg
               class="w-5 h-5"
               fill="none"
@@ -134,7 +134,7 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
                     </svg> -->
           </div>
           <div>
-          <div class="flex items-center space-x-4 text-gray-600">
+          <div class="flex items-center space-x-4 max-sm:space-x-1 text-gray-600">
             <div class="relative">
               <svg
                 id="like-icon"
@@ -178,7 +178,7 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
 >0</span>
 
               
-            </div> <button id="burgerBtn" class="lg:hidden block text-2xl p-2 rounded-lg" aria-label="Open menu">
+            </div> <button id="burgerBtn" class="lg:hidden block text-2xl max-sm:text-xl p-2 rounded-lg" aria-label="Open menu">
   ☰
 </button></div>
           </div>

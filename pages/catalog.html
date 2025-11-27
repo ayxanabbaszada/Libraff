@@ -31,9 +31,23 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
     <!-- JS render edəcək -->
 </div>
             <!-- Search input (desktop) -->
-            <div class="relative hidden lg:block w-[400px]">
+            <div class="relative hidden max-sm:block max-sm:w-[100px] max-md:block max-md:w-[200px] max-lg:block max-lg:w-[400px] lg:block w-[400px]">
                 <input type="text" id="searchInputMain" placeholder="Növbəti kitabınızı axtarın" autocomplete="off"
                     class="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-red-600" />
+                    <svg
+              class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
             </div>
 
             <div class="flex items-center space-x-4 text-gray-600">
