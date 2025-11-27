@@ -3,9 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>Kitab Detalları</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    @keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
+}
+
      .scrollbar-hide::-webkit-scrollbar {
     display: none; 
   }
@@ -39,7 +53,7 @@
           />
         </a>
         <div class="flex items-center space-x-4">
-         <div class="header-catalog-button hover:cursor-pointer bg-[#dc2626] text-[#ffffff] p-1 rounded-md" onclick="handlePopUp(true)">
+         <div class="header-catalog-button hidden lg:block hover:cursor-pointer bg-[#dc2626] text-[#ffffff] p-1 rounded-md" onclick="handlePopUp(true)">
     Kataloq
 </div>
 <div id="catalog-sidebar-popup" class="hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
@@ -48,7 +62,7 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
 </div>
 
 
-          <div class="relative hidden lg:block w-[400px]">
+          <div class="relative hidden max-sm:block max-md:w-[100px] md:block lg:block w-[400px]">
           <form autocomplete="off">
             <input
               type="text"
@@ -165,6 +179,14 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
             </div>
           </div>
         </div>
+        <!-- Mobil burger düyməsi -->
+<button id="burger-btn" class="lg:hidden p-2 text-gray-700 hover:bg-gray-100 rounded-md">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M4 6h16M4 12h16M4 18h16"/>
+  </svg>
+</button>
+
       </div>
       <div class="border-t border-gray-200 mt-2 py-2 hidden lg:block">
         <div
@@ -188,12 +210,110 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
           >
         </div>
       </div>
+      <!-- Burger menyu -->
+<div id="burgerMenu" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50">
+<div class="fixed overflow-y-auto top-0 right-0 bg-white w-3/4 sm:w-2/3 h-full p-4 flex flex-col space-y-3 animate-slideIn">
+    
+    <!-- Bağlama düyməsi -->
+    <button id="closeBurger" class="text-2xl self-end mb-4">✕</button>
+
+    <!-- Əsas menyular -->
+    <a href="#" class="font-semibold text-gray-900 border-b-2 border-red-600 pb-2">
+      Bestseller - İyul
+    </a>
+    <a href="./pages/catalog.html?category=Endirimler" class="text-gray-800">Endirimlər</a>
+    <a href="./pages/authors.html" class="text-gray-800">Müəlliflər</a>
+    <a href="./pages/catalog.html?category=Klassiklər" class="text-gray-800">Klassiklər</a>
+
+    <!-- Yeni əlavə: Kataloq bölməsi -->
+    <details class="group">
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Kataloq</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Kitab</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Bədii ədəbiyyat</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    <a href="./pages/catalog.html?category=Antologiya">Antologiya</a>
+    <a href="./pages/catalog.html?category=Dedektiv">Dedektiv</a>
+    <a href="./pages/catalog.html?category=Elmi-fantastika%20%26%20Fantaziya">Elmi-fantastika & Fantaziya</a>
+    <a href="./pages/catalog.html?category=Fəlsəfə">Fəlsəfə</a>
+    <a href="./pages/catalog.html?category=Hekayələr%20%26%20Oçerklər">Hekayələr & Oçerklər</a>
+    <a href="./pages/catalog.html?category=Kino və teatr">Kino və teatr</a>
+    <a href="./pages/catalog.html?category=Klassik poemalar">Klassik poemalar</a>
+    <a href="./pages/catalog.html?category=Klassiklər">Klassiklər</a>
+    <a href="./pages/catalog.html?category=Mifologiya">Mifologiya</a>
+    <a href="./pages/catalog.html?category=Poemalar">Poemalar</a>
+    <a href="./pages/catalog.html?category=Romanlar%20%26%20Novellalar">Romanlar & Novellalar</a>
+    <a href="./pages/catalog.html?category=Satira">Satira</a>
+    <a href="./pages/catalog.html?category=Tarixi roman">Tarixi roman</a>
+    <a href="./pages/catalog.html?category=Triller%2C%20mistika%20%26%20Qorxu">Triller, mistika & Qorxu</a>
+    </details>
+    <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Qeyri-bədii ədəbiyyat</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <a href="./pages/catalog.html?category=Bioqrafiya%2C%20avtobioqrafiya%20%26%20Xatirə">Bioqrafiya, avtobioqrafiya & Xatirə</a>
+      <a href="./pages/catalog.html?category=Psixologiya">Psixologiya</a>
+      <a href="./pages/catalog.html?category=Tarix%2C%20hüquq%20%26%20Siyasi">Tarix, hüquq & Siyasi</a>
+      <a href="./pages/catalog.html?category=Təhsil%2C%20mənbə%20%26%20Dil">Təhsil, mənbə & Dil</a>
+    </details>
+    <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Bədii uşaq ədəbiyyatı </span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <a href="./pages/catalog.html?category=Nağıllar">Nağıllar</a>
+      <a href="./pages/catalog.html?category=Komiks">Komiks</a>
+      <a href="./pages/catalog.html?category=Macəra">Macəra</a>
+    </details>
+    </details>
+    <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./pages/catalog.html?category=Elektronika%20%26%20aksessuar">Elektronika & aksessuar</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+    <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./pages/catalog.html?category=Oyuncaqlar%20%26%20Oyunlar">Oyuncaqlar & Oyunlar</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+    <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./pages/catalog.html?category=Dəftərxana">Dəftərxana</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+    <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./pages/catalog.html?category=Hədiyyələr%20%26%20Hobbi">Hədiyyələr & Hobbi</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+
+      
+    </details>
+  </div>
+</div>
+
     </header>
 <body class="bg-gray-100">
-  <div id="book-detail" class="max-w-4xl mx-auto p-6"></div>
+  <div id="book-detail" class="max-w-4xl mx-4 md:mx-auto p-4 md:p-6"></div>
 
   <h2 class="text-xl font-bold mt-10 mb-4 text-center">Oxşar kitablar</h2>
-  <div id="similar-books" class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto"></div>
+  <div id="similar-books" class="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto"></div>
+
+
   <div
       id="cart-modal"
       class=" fixed top-0 right-0 w-80 h-full bg-white shadow-2xl transform translate-x-full  transition-transform overflow-y-auto scrollbar-hide z-50 rounded-l-lg border-l border-gray-200 "
@@ -300,39 +420,30 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
     if (book) {
       // Əsas kitab detalı
       bookDetail.innerHTML = `
- <div class="bg-white rounded shadow-xl p-10 flex gap-10 w-4xl mx-auto">
-  <!-- Şəkil -->
-  <img src="${book.image}" alt="${book.name}" class="w-[28rem] h-[36rem] object-cover rounded-lg">
-
-  <!-- Məlumatlar -->
+ <div class="bg-white rounded shadow-xl p-6 flex flex-col md:flex-row gap-6 w-full max-w-4xl mx-auto min-h-[28rem]">
+  <img src="${book.image}" alt="${book.name}" class="w-full sm:w-[28rem] h-64 sm:h-[36rem] object-cover rounded-lg flex-shrink-0">
   <div class="flex flex-col justify-between flex-1">
     <div>
-      <h1 class="text-6xl font-bold mb-5">${book.name}</h1>
-      <p class="text-2xl text-gray-600 mb-4">${book.author}</p>
-      <p class="text-xl text-gray-700 mb-8">${book.description || "Təsvir məlumatı yoxdur"}</p>
+      <h1 class="text-3xl md:text-6xl font-bold mb-3 md:mb-5">${book.name}</h1>
+      <p class="text-lg md:text-2xl text-gray-600 mb-2 md:mb-4">${book.author}</p>
+      <p class="text-base md:text-xl text-gray-700 mb-4 md:mb-8">${book.description || "Təsvir məlumatı yoxdur"}</p>
     </div>
-
-    <!-- Qiymət və endirim -->
-    <div class="mb-8">
-      <!-- Endirimli qiymət -->
-      <p class="text-4xl font-bold text-red-600 mb-2">${book.price} ₼</p>
-
-      <!-- Endirimsiz qiymət və endirim faizi bir sətirdə -->
-      <div class="flex items-center justify-start gap-4">
-        <span class="line-through text-gray-400 text-xl">${book.list_price || ""} ₼</span>
-        <span class="bg-red-500 text-white text-base px-3 py-1 rounded">${book.discount_percent || ""}</span>
+    <div class="mb-4 md:mb-8">
+      <p class="text-2xl md:text-4xl font-bold text-red-600 mb-1 md:mb-2">${book.price} ₼</p>
+      <div class="flex items-center gap-2 md:gap-4">
+        <span class="line-through text-gray-400 text-sm md:text-xl">${book.list_price || ""} ₼</span>
+        <span class="bg-red-500 text-white text-xs md:text-base px-2 py-1 rounded">${book.discount_percent || ""}</span>
       </div>
     </div>
-
-    <!-- Səbət düyməsi və like -->
-    <div class="flex items-center gap-6">
-      <button class="bg-red-600 text-white px-5 py-3 rounded-xl hover:bg-red-700 transition text-xl">
+    <div class="flex items-center gap-4 md:gap-6">
+      <button class="bg-red-600 text-white px-4 py-2 md:px-5 md:py-3 rounded-xl hover:bg-red-700 transition text-lg md:text-xl">
         Səbətə əlavə et
       </button>
-      <button class="like-btn text-red-500 text-4xl" title="Like">❤️</button>
+      <button class="like-btn text-red-500 text-3xl md:text-4xl" title="Like">❤️</button>
     </div>
   </div>
 </div>
+
 
 
 
@@ -344,24 +455,22 @@ similarBooks.innerHTML = ""; // təmizlə
 
 relatedBooks.forEach(b => {
     const div = document.createElement("div");
-    div.className = "bg-white rounded shadow p-3 cursor-pointer hover:shadow-lg";
-    
-    // kliklə detail-ə getmək
+    div.className = "bg-white rounded shadow p-3 cursor-pointer hover:shadow-lg flex flex-col items-center w-64"; 
+    // w-64 = 16rem, card-ların sabit eni
     div.addEventListener("click", () => goToDetail(b.product_url));
     
     div.innerHTML = `
-        <img src="${b.image}" alt="${b.name}" class="w-full h-40 object-cover rounded mb-2">
-        <h3 class="text-sm font-bold">${b.name}</h3>
-        <p class="text-xs text-gray-500">${b.author}</p>
-        <div class="flex justify-between items-center pt-2">
+        <img src="${b.image}" alt="${b.name}" class="w-full h-40 object-contain rounded mb-2">
+        <h3 class="text-sm font-bold text-center">${b.name}</h3>
+        <p class="text-xs text-gray-500 text-center">${b.author}</p>
+        <div class="flex justify-between items-center pt-2 w-full">
             <button class="add-to-cart-btn bg-green-500 text-white px-3 py-1 rounded text-xs">Səbətə əlavə et</button>
             <button class="like-btn text-red-500 text-xs">❤️</button>
         </div>
     `;
     
-    // Düymələr üçün ayrıca event
     div.querySelector(".add-to-cart-btn").addEventListener("click", (e) => {
-        e.stopPropagation(); // div klikini dayandır
+        e.stopPropagation();
         addToCart(b);
     });
     div.querySelector(".like-btn").addEventListener("click", (e) => {
@@ -371,6 +480,7 @@ relatedBooks.forEach(b => {
 
     similarBooks.appendChild(div);
 });
+
     }
 
 
@@ -635,5 +745,154 @@ updateCartCount();
     <script src="./middle/middleware.js"></script>
     <script type="module src="../js/service.js"></script>
     <script type="module" src="../js/index.js"></script>
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const burgerBtn = document.getElementById("burger-btn");
+    const burgerMenu = document.getElementById("burgerMenu");
+    const closeBurger = document.getElementById("closeBurger");
+
+    // Burger menyunu aç
+    if (burgerBtn) {
+      burgerBtn.addEventListener("click", () => {
+        burgerMenu.classList.remove("hidden");
+        document.body.classList.add("overflow-hidden");
+      });
+    }
+
+    // Burger menyunu bağla
+    if (closeBurger) {
+      closeBurger.addEventListener("click", () => {
+        burgerMenu.classList.add("hidden");
+        document.body.classList.remove("overflow-hidden");
+      });
+    }
+
+    // Fonun üzərinə klikləyəndə də bağlansın
+    burgerMenu.addEventListener("click", (e) => {
+      if (e.target === burgerMenu) {
+        burgerMenu.classList.add("hidden");
+        document.body.classList.remove("overflow-hidden");
+      }
+    });
+  });
+</script>
+<script type="module">
+import books from '../db/db.js'; // Kitab data faylı
+
+const searchInput = document.getElementById("searchInput");
+const similarBooksContainer = document.getElementById("similar-books");
+
+// Kitab kartlarını render edən funksiya
+function renderBooks(bookList) {
+    similarBooksContainer.innerHTML = "";
+    if (!bookList.length) {
+        similarBooksContainer.innerHTML = '<p class="text-center text-gray-500">Heç bir kitab tapılmadı</p>';
+        return;
+    }
+
+    bookList.forEach(book => {
+        const div = document.createElement("div");
+        div.className = "bg-white rounded shadow p-3 cursor-pointer flex flex-col items-center w-64 hover:shadow-lg transition";
+
+        div.innerHTML = `
+            <img src="${book.image}" alt="${book.name}" class="w-full h-40 object-contain rounded mb-2">
+            <h3 class="text-sm font-bold text-center">${book.name}</h3>
+            <p class="text-xs text-gray-500 text-center">${book.author || ''}</p>
+            <div class="flex justify-between items-center pt-2 w-full">
+                <button class="add-to-cart-btn bg-green-500 text-white px-3 py-1 rounded text-xs">Səbətə əlavə et</button>
+                <button class="like-btn text-red-500 text-xs">❤️</button>
+            </div>
+        `;
+
+        // Kart klikləyəndə detal səhifəsinə yönləndirsin
+        div.addEventListener("click", () => goToDetail(book.product_url));
+
+        // Add to cart
+        div.querySelector(".add-to-cart-btn").addEventListener("click", (e) => {
+            e.stopPropagation();
+            addToCart(book);
+        });
+
+        // Like
+        div.querySelector(".like-btn").addEventListener("click", (e) => {
+            e.stopPropagation();
+            likeBook(book);
+        });
+
+        similarBooksContainer.appendChild(div);
+    });
+}
+
+// Search event
+searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase().trim();
+    const filtered = books.filter(b =>
+        b.name.toLowerCase().includes(query) ||
+        (b.author && b.author.toLowerCase().includes(query))
+    );
+    renderBooks(filtered);
+});
+
+// İlk render (bütün kitablar)
+renderBooks(books);
+
+// Funksiya: Detal səhifəyə yönləndirmə
+window.goToDetail = function(product_url) {
+    window.location.href = `./viewdetail.html?product=${product_url}`;
+};
+
+// Cart funksiyaları
+function addToCart(book) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if (!cart.some(b => b.product_url === book.product_url)) {
+        cart.push(book);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        showToast(`${book.name} səbətə əlavə olundu!`, "success");
+    } else {
+        showToast("Bu kitab artıq səbətdədir!", "error");
+    }
+}
+
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartCount = document.getElementById("cart-count");
+    if(cartCount) cartCount.textContent = cart.length;
+}
+
+// Like funksiyaları
+function likeBook(book) {
+    let liked = JSON.parse(localStorage.getItem("likedBooks")) || [];
+    if (!liked.some(b => b.product_url === book.product_url)) {
+        liked.push(book);
+        localStorage.setItem("likedBooks", JSON.stringify(liked));
+        updateLikeCount();
+        showToast(`${book.name} bəyənildi!`, "success");
+    } else {
+        showToast("Bu kitab artıq bəyənilib!", "error");
+    }
+}
+
+function updateLikeCount() {
+    const liked = JSON.parse(localStorage.getItem("likedBooks")) || [];
+    const likeCount = document.getElementById("like-count");
+    if(likeCount) likeCount.textContent = liked.length;
+}
+
+// Modern toast
+function showToast(message, type="success") {
+    const toast = document.createElement("div");
+    toast.textContent = message;
+    toast.className = `fixed bottom-4 right-4 px-4 py-2 rounded shadow-lg text-white z-50 ${type==="success"?"bg-green-500":"bg-red-500"}`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2000);
+}
+
+// İlk yükdə cart və like saylarını göstərin
+updateCartCount();
+updateLikeCount();
+
+</script>
+
 </body>
 </html>

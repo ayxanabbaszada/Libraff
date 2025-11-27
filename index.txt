@@ -1,13 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="az">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Müəlliflər</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/output.css">
-    <style>
-         .scrollbar-hide::-webkit-scrollbar {
+  <meta charset="UTF-8">
+  <title>Kitab Detalları</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
+}
+
+     .scrollbar-hide::-webkit-scrollbar {
     display: none; 
   }
 
@@ -15,11 +27,9 @@
     -ms-overflow-style: none;  
     scrollbar-width: none;     
   }
-    </style>
-    <script src="https://cdn.tailwindcss.com"></script>
+  </style>
 </head>
-<body>
-    <header class="bg-white p-2 border-b border-gray-200 shadow-sm">
+<header class="bg-white p-2 border-b border-gray-200 shadow-sm">
       <div id="popLayer" class="fixed inset-0 bg-black/50 z-50 hidden">
         <div
           class="absolute top-1/2 left-1/2 w-[80vw] h-[80vh] -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-lg flex"
@@ -51,7 +61,7 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
 </div>
 
 
-          <!-- <div class="relative hidden lg:block w-[400px]">
+          <div class="relative hidden lg:block w-[400px]">
           <form autocomplete="off">
             <input
               type="text"
@@ -75,7 +85,7 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               ></path>
             </svg>
-          </div> -->
+          </div>
           <div class="flex items-center space-x-2 text-gray-600 hidden lg:flex">
             <span class="cursor-pointer">AZ</span>
             <svg
@@ -166,26 +176,31 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
 
               
             </div>
-            <button id="burgerBtn" class="lg:hidden block text-2xl p-2 rounded-lg" aria-label="Open menu">
-  ☰
-</button>
           </div>
         </div>
+        <!-- Mobil burger düyməsi -->
+<button id="burger-btn" class="lg:hidden p-2 text-gray-700 hover:bg-gray-100 rounded-md">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M4 6h16M4 12h16M4 18h16"/>
+  </svg>
+</button>
+
       </div>
       <div class="border-t border-gray-200 mt-2 py-2 hidden lg:block">
         <div
           class="container mx-auto flex justify-start space-x-6 text-gray-700 text-sm"
         >
           <a
-            href="../index.html"
+            href="#"
             class="font-semibold text-gray-900 border-b-2 border-red-600 pb-2"
             >Bestseller - İyul</a
           >
-          <a href="./catalog.html?category=Endirimler" class="hover:text-red-600 transition-colors duration-200"
+          <a href="" class="hover:text-red-600 transition-colors duration-200"
             >Endirimlər</a
           >
           <a
-            href="#"
+            href="./authors.html"
             class="hover:text-red-600 transition-colors duration-200"
             >Müəlliflər</a
           >
@@ -194,8 +209,8 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
           >
         </div>
       </div>
-      
-      <div id="burgerMenu" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50">
+      <!-- Burger menyu -->
+<div id="burgerMenu" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50">
   <div class="fixed overflow-y-auto top-0 right-0 bg-white w-3/4 h-full p-6 flex flex-col space-y-5 animate-slideIn">
     
     <!-- Bağlama düyməsi -->
@@ -205,9 +220,9 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
     <a href="#" class="font-semibold text-gray-900 border-b-2 border-red-600 pb-2">
       Bestseller - İyul
     </a>
-    <a href="./catalog.html?category=Endirimler" class="text-gray-800">Endirimlər</a>
-    <a href="./authors.html" class="text-gray-800">Müəlliflər</a>
-    <a href="./catalog.html?category=Klassiklər" class="text-gray-800">Klassiklər</a>
+    <a href="./pages/catalog.html?category=Endirimler" class="text-gray-800">Endirimlər</a>
+    <a href="./pages/authors.html" class="text-gray-800">Müəlliflər</a>
+    <a href="./pages/catalog.html?category=Klassiklər" class="text-gray-800">Klassiklər</a>
 
     <!-- Yeni əlavə: Kataloq bölməsi -->
     <details class="group">
@@ -225,7 +240,6 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
         📚 <span>Bədii ədəbiyyat</span>
         <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
       </summary>
-      <summary class="list-none flex flex-col">
     <a href="./pages/catalog.html?category=Antologiya">Antologiya</a>
     <a href="./pages/catalog.html?category=Dedektiv">Dedektiv</a>
     <a href="./pages/catalog.html?category=Elmi-fantastika%20%26%20Fantaziya">Elmi-fantastika & Fantaziya</a>
@@ -240,31 +254,25 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
     <a href="./pages/catalog.html?category=Satira">Satira</a>
     <a href="./pages/catalog.html?category=Tarixi roman">Tarixi roman</a>
     <a href="./pages/catalog.html?category=Triller%2C%20mistika%20%26%20Qorxu">Triller, mistika & Qorxu</a>
-    </summary>
-   
     </details>
     <details>
       <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
         📚 <span>Qeyri-bədii ədəbiyyat</span>
         <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
       </summary>
-      <summary class="list-none flex flex-col">
       <a href="./pages/catalog.html?category=Bioqrafiya%2C%20avtobioqrafiya%20%26%20Xatirə">Bioqrafiya, avtobioqrafiya & Xatirə</a>
       <a href="./pages/catalog.html?category=Psixologiya">Psixologiya</a>
       <a href="./pages/catalog.html?category=Tarix%2C%20hüquq%20%26%20Siyasi">Tarix, hüquq & Siyasi</a>
       <a href="./pages/catalog.html?category=Təhsil%2C%20mənbə%20%26%20Dil">Təhsil, mənbə & Dil</a>
-      </summary>
     </details>
     <details>
       <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
         📚 <span>Bədii uşaq ədəbiyyatı </span>
         <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
       </summary>
-      <summary class="list-none flex flex-col">
       <a href="./pages/catalog.html?category=Nağıllar">Nağıllar</a>
       <a href="./pages/catalog.html?category=Komiks">Komiks</a>
       <a href="./pages/catalog.html?category=Macəra">Macəra</a>
-      </summary>
     </details>
     </details>
     <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
@@ -296,17 +304,14 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
     </details>
   </div>
 </div>
+
     </header>
-    
-    <main class="container mx-auto my-8 p-4">
-        <h1 class="text-xl font-bold mb-4">Müəlliflər</h1>
-        <div class="text-sm text-gray-500 mb-6">
-            <a href="../index.html" class="hover:underline">Əsas səhifə</a> / Müəlliflər
-        </div>
-        <div id="authorsList" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            </div>
-    </main>
-    <div
+<body class="bg-gray-100">
+  <div id="book-detail" class="max-w-4xl mx-auto p-6"></div>
+
+  <h2 class="text-xl font-bold mt-10 mb-4 text-center">Oxşar kitablar</h2>
+  <div id="similar-books" class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto"></div>
+  <div
       id="cart-modal"
       class=" fixed top-0 right-0 w-80 h-full bg-white shadow-2xl transform translate-x-full  transition-transform overflow-y-auto scrollbar-hide z-50 rounded-l-lg border-l border-gray-200 "
     >
@@ -394,11 +399,103 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
         <p id="resetMsg" class="text-sm text-red-500 mt-2"></p>
       </div>
     </div>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module" src="../js/headerCatalog.js"></script>
-    <script type="module" src="../js/burger.js"></script>
-    <script type="module" >
-        function openModal(type) {
+
+  <script type="module">
+    // 📌 data (öz data.js-dən import edə bilərsən, ya da burda yaz)
+    import books from '../db/db.js';
+    
+
+    // 📌 URL-dən product parametri götür
+    const params = new URLSearchParams(window.location.search);
+    const productUrl = params.get("product");
+
+    const bookDetail = document.getElementById("book-detail");
+    const similarBooks = document.getElementById("similar-books");
+
+    const book = books.find(b => b.product_url === productUrl);
+
+    if (book) {
+      // Əsas kitab detalı
+      bookDetail.innerHTML = `
+ <div class="bg-white rounded shadow-xl p-10 flex gap-10 w-4xl mx-auto">
+  <!-- Şəkil -->
+  <img src="${book.image}" alt="${book.name}" class="w-[28rem] h-[36rem] object-cover rounded-lg">
+
+  <!-- Məlumatlar -->
+  <div class="flex flex-col justify-between flex-1">
+    <div>
+      <h1 class="text-6xl font-bold mb-5">${book.name}</h1>
+      <p class="text-2xl text-gray-600 mb-4">${book.author}</p>
+      <p class="text-xl text-gray-700 mb-8">${book.description || "Təsvir məlumatı yoxdur"}</p>
+    </div>
+
+    <!-- Qiymət və endirim -->
+    <div class="mb-8">
+      <!-- Endirimli qiymət -->
+      <p class="text-4xl font-bold text-red-600 mb-2">${book.price} ₼</p>
+
+      <!-- Endirimsiz qiymət və endirim faizi bir sətirdə -->
+      <div class="flex items-center justify-start gap-4">
+        <span class="line-through text-gray-400 text-xl">${book.list_price || ""} ₼</span>
+        <span class="bg-red-500 text-white text-base px-3 py-1 rounded">${book.discount_percent || ""}</span>
+      </div>
+    </div>
+
+    <!-- Səbət düyməsi və like -->
+    <div class="flex items-center gap-6">
+      <button class="bg-red-600 text-white px-5 py-3 rounded-xl hover:bg-red-700 transition text-xl">
+        Səbətə əlavə et
+      </button>
+      <button class="like-btn text-red-500 text-4xl" title="Like">❤️</button>
+    </div>
+  </div>
+</div>
+
+
+
+      `;
+
+      // Oxşar kitablar (eyni janr)
+   const relatedBooks = books.filter(b => b.genre === book.genre && b.product_url !== productUrl);
+similarBooks.innerHTML = ""; // təmizlə
+
+relatedBooks.forEach(b => {
+    const div = document.createElement("div");
+    div.className = "bg-white rounded shadow p-3 cursor-pointer hover:shadow-lg";
+    
+    // kliklə detail-ə getmək
+    div.addEventListener("click", () => goToDetail(b.product_url));
+    
+    div.innerHTML = `
+        <img src="${b.image}" alt="${b.name}" class="w-full h-40 object-cover rounded mb-2">
+        <h3 class="text-sm font-bold">${b.name}</h3>
+        <p class="text-xs text-gray-500">${b.author}</p>
+        <div class="flex justify-between items-center pt-2">
+            <button class="add-to-cart-btn bg-green-500 text-white px-3 py-1 rounded text-xs">Səbətə əlavə et</button>
+            <button class="like-btn text-red-500 text-xs">❤️</button>
+        </div>
+    `;
+    
+    // Düymələr üçün ayrıca event
+    div.querySelector(".add-to-cart-btn").addEventListener("click", (e) => {
+        e.stopPropagation(); // div klikini dayandır
+        addToCart(b);
+    });
+    div.querySelector(".like-btn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        likeBook(b);
+    });
+
+    similarBooks.appendChild(div);
+});
+    }
+
+
+    // 📌 Yönləndirmə funksiyası
+    window.goToDetail = function(product_url) {
+      window.location.href = `./viewdetail.html?product=${product_url}`;
+    };
+      function openModal(type) {
           document.getElementById("authModal").classList.remove("hidden");
           document.getElementById("loginForm").classList.add("hidden");
           document.getElementById("registerForm").classList.add("hidden");
@@ -640,14 +737,10 @@ document.getElementById("").addEventListener("click", () => {
 
 // 5️⃣ Sayt açılan kimi cart sayı göstərilsin
 updateCartCount(); 
-// const basePath = window.location.pathname.includes("/pages/") ? "./" : "./pages/";
-// subLink.href = basePath + "catalog.html?category=" + encodeURIComponent(subItem);
 
-
-    </script>
-<script type="module" src="../js/authors.js"></script>
- 
-   
+  </script>
+  <script type="module" src="../js/headerCatalog.js"></script>
+    <script type="module" src="../js/authors.js"></script>
     <script type="module" src="../js/data.js"></script>
     <script src="../js/showpopup.js"></script>
    
@@ -659,6 +752,37 @@ updateCartCount();
     <script src="./middle/middleware.js"></script>
     <script type="module src="../js/service.js"></script>
     <script type="module" src="../js/index.js"></script>
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const burgerBtn = document.getElementById("burger-btn");
+    const burgerMenu = document.getElementById("burgerMenu");
+    const closeBurger = document.getElementById("closeBurger");
+
+    // Burger menyunu aç
+    if (burgerBtn) {
+      burgerBtn.addEventListener("click", () => {
+        burgerMenu.classList.remove("hidden");
+        document.body.classList.add("overflow-hidden");
+      });
+    }
+
+    // Burger menyunu bağla
+    if (closeBurger) {
+      closeBurger.addEventListener("click", () => {
+        burgerMenu.classList.add("hidden");
+        document.body.classList.remove("overflow-hidden");
+      });
+    }
+
+    // Fonun üzərinə klikləyəndə də bağlansın
+    burgerMenu.addEventListener("click", (e) => {
+      if (e.target === burgerMenu) {
+        burgerMenu.classList.add("hidden");
+        document.body.classList.remove("overflow-hidden");
+      }
+    });
+  });
+</script>
 
 </body>
 </html>

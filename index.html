@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LİBRAFF</title>
+    <link rel="stylesheet" href="./css/responsive.css">
+   
+
     <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -23,7 +26,8 @@
 
 
     </style>
-  </head>
+      <link rel="stylesheet" href="./css_responsive_helpers.css">
+</head>
 
   <body>
     <header class="bg-white p-2 border-b border-gray-200 shadow-sm">
@@ -49,9 +53,10 @@
           />
         </a>
         <div class="flex items-center space-x-4">
-          <div class="header-catalog-button hover:cursor-pointer bg-[#dc2626] text-[#ffffff] p-1 rounded-md" onclick="handlePopUp(true)">
-    Kataloq
+         <div class="header-catalog-button hidden lg:block hover:cursor-pointer bg-[#dc2626] text-[#ffffff] p-1 rounded-md" onclick="handlePopUp(true)">
+  Kataloq
 </div>
+
 <div id="catalog-sidebar-popup" class="hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
 w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg shadow-lg z-50 p-4">
     <!-- JS render edəcək -->
@@ -128,6 +133,7 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
                             clip-rule="evenodd"></path>
                     </svg> -->
           </div>
+          <div>
           <div class="flex items-center space-x-4 text-gray-600">
             <div class="relative">
               <svg
@@ -172,10 +178,12 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
 >0</span>
 
               
-            </div>
+            </div> <button id="burgerBtn" class="lg:hidden block text-2xl p-2 rounded-lg" aria-label="Open menu">
+  ☰
+</button></div>
           </div>
         </div>
-      </div>
+   </div>
       <div class="border-t border-gray-200 mt-2 py-2 hidden lg:block">
         <div
           class="container mx-auto flex justify-start space-x-6 text-gray-700 text-sm"
@@ -185,7 +193,7 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
             class="font-semibold text-gray-900 border-b-2 border-red-600 pb-2"
             >Bestseller - İyul</a
           >
-          <a href="" class="hover:text-red-600 transition-colors duration-200"
+          <a href="./pages/catalog.html?category=Endirimler" class="hover:text-red-600 transition-colors duration-200"
             >Endirimlər</a
           >
           <a
@@ -198,6 +206,8 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
           >
         </div>
       </div>
+
+
     </header>
     <section
       id="slider"
@@ -384,6 +394,8 @@ w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg s
     <script src="./middle/middleware.js"></script>
     <script type="module" src="./js/service.js"></script>
     <script type="module" src="./js/index.js"></script>
+    <script src="./js/burger.js"></script>
+
    
    
     <!-- Firebase App (core) SDK -->
@@ -997,6 +1009,102 @@ document.addEventListener("DOMContentLoaded", () => {
     >
       Uğurla çıxış etdiniz!
     </div>
+    <!-- Burger menyu -->
+<div id="burgerMenu" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50">
+  <div class="fixed overflow-y-auto top-0 right-0 bg-white w-3/4 h-full p-6 flex flex-col space-y-5 animate-slideIn">
+    
+    <!-- Bağlama düyməsi -->
+    <button id="closeBurger" class="text-2xl self-end mb-4">✕</button>
+
+    <!-- Əsas menyular -->
+    <a href="#" class="font-semibold text-gray-900 border-b-2 border-red-600 pb-2">
+      Bestseller - İyul
+    </a>
+    <a href="./pages/catalog.html?category=Endirimler" class="text-gray-800">Endirimlər</a>
+    <a href="./pages/authors.html" class="text-gray-800">Müəlliflər</a>
+    <a href="./pages/catalog.html?category=Klassiklər" class="text-gray-800">Klassiklər</a>
+
+    <!-- Yeni əlavə: Kataloq bölməsi -->
+    <details class="group">
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Kataloq</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Kitab</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Bədii ədəbiyyat</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    <a href="./pages/catalog.html?category=Antologiya">Antologiya</a>
+    <a href="./pages/catalog.html?category=Dedektiv">Dedektiv</a>
+    <a href="./pages/catalog.html?category=Elmi-fantastika%20%26%20Fantaziya">Elmi-fantastika & Fantaziya</a>
+    <a href="./pages/catalog.html?category=Fəlsəfə">Fəlsəfə</a>
+    <a href="./pages/catalog.html?category=Hekayələr%20%26%20Oçerklər">Hekayələr & Oçerklər</a>
+    <a href="./pages/catalog.html?category=Kino və teatr">Kino və teatr</a>
+    <a href="./pages/catalog.html?category=Klassik poemalar">Klassik poemalar</a>
+    <a href="./pages/catalog.html?category=Klassiklər">Klassiklər</a>
+    <a href="./pages/catalog.html?category=Mifologiya">Mifologiya</a>
+    <a href="./pages/catalog.html?category=Poemalar">Poemalar</a>
+    <a href="./pages/catalog.html?category=Romanlar%20%26%20Novellalar">Romanlar & Novellalar</a>
+    <a href="./pages/catalog.html?category=Satira">Satira</a>
+    <a href="./pages/catalog.html?category=Tarixi roman">Tarixi roman</a>
+    <a href="./pages/catalog.html?category=Triller%2C%20mistika%20%26%20Qorxu">Triller, mistika & Qorxu</a>
+    </details>
+    <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Qeyri-bədii ədəbiyyat</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <a href="./pages/catalog.html?category=Bioqrafiya%2C%20avtobioqrafiya%20%26%20Xatirə">Bioqrafiya, avtobioqrafiya & Xatirə</a>
+      <a href="./pages/catalog.html?category=Psixologiya">Psixologiya</a>
+      <a href="./pages/catalog.html?category=Tarix%2C%20hüquq%20%26%20Siyasi">Tarix, hüquq & Siyasi</a>
+      <a href="./pages/catalog.html?category=Təhsil%2C%20mənbə%20%26%20Dil">Təhsil, mənbə & Dil</a>
+    </details>
+    <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Bədii uşaq ədəbiyyatı </span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <a href="./pages/catalog.html?category=Nağıllar">Nağıllar</a>
+      <a href="./pages/catalog.html?category=Komiks">Komiks</a>
+      <a href="./pages/catalog.html?category=Macəra">Macəra</a>
+    </details>
+    </details>
+    <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./pages/catalog.html?category=Elektronika%20%26%20aksessuar">Elektronika & aksessuar</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+    <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./pages/catalog.html?category=Oyuncaqlar%20%26%20Oyunlar">Oyuncaqlar & Oyunlar</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+    <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./pages/catalog.html?category=Dəftərxana">Dəftərxana</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+    <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./pages/catalog.html?category=Hədiyyələr%20%26%20Hobbi">Hədiyyələr & Hobbi</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+
+      
+    </details>
+  </div>
+</div>
+
   </body>
   <footer class="bg-gray-50 py-10 px-4 md:px-8 border-t border-gray-200">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">

@@ -3,16 +3,19 @@ import categoryData from './data.js';
 
 const catalogSidebar = document.getElementById('catalog-sidebar');
 const booksContainer = document.getElementById('booksContainer');
+const searchInputMain = document.getElementById('searchInputMain'); // əgər search input varsa
 
 // ---------- CART & LIKE FUNKSİYALARI ----------
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     document.getElementById("cart-count").textContent = cart.length;
 }
+
 function updateLikeCount() {
     const liked = JSON.parse(localStorage.getItem("likedBooks")) || [];
     document.getElementById("like-count").textContent = liked.length;
 }
+
 function showToast(msg, type="success") {
     const toast = document.createElement("div");
     toast.textContent = msg;
@@ -20,6 +23,7 @@ function showToast(msg, type="success") {
     document.body.appendChild(toast);
     setTimeout(()=>toast.remove(), 2000);
 }
+
 function addToCart(book){
     let cart = JSON.parse(localStorage.getItem("cart"))||[];
     if(!cart.some(b=>b.product_url===book.product_url)){
@@ -30,6 +34,7 @@ function addToCart(book){
         showToast(`${book.name} səbətə əlavə olundu!`);
     } else showToast("Bu kitab artıq səbətdədir!", "error");
 }
+
 function removeFromCart(index){
     let cart = JSON.parse(localStorage.getItem("cart"))||[];
     cart.splice(index,1);
@@ -37,6 +42,7 @@ function removeFromCart(index){
     renderCartModal();
     updateCartCount();
 }
+
 function renderCartModal(){
     const cart = JSON.parse(localStorage.getItem("cart"))||[];
     const list = document.getElementById("cart-list");
@@ -77,6 +83,7 @@ function likeBook(book){
         showToast(`${book.name} bəyənildi!`);
     } else showToast("Bu kitab artıq bəyənilib!", "error");
 }
+
 function removeFromLiked(index){
     let liked = JSON.parse(localStorage.getItem("likedBooks"))||[];
     liked.splice(index,1);
@@ -84,6 +91,7 @@ function removeFromLiked(index){
     renderLikeModal();
     updateLikeCount();
 }
+
 function renderLikeModal(){
     const liked = JSON.parse(localStorage.getItem("likedBooks"))||[];
     const list = document.getElementById("like-list");
@@ -147,60 +155,6 @@ function renderBooks(books){
     });
 }
 
-// ---------- CATALOG SIDEBAR (REKURSİV) ----------
-function renderCategory(categories, container){
-    categories.forEach(cat => {
-        const li = document.createElement("li");
-        li.className = "category-item";
-
-        if(typeof cat === "string"){
-            const span = document.createElement("span");
-            span.textContent = cat;
-            span.className = "cursor-pointer font-normal ml-4";
-
-            span.addEventListener("click", () => {
-                // URL query param əlavə et
-                const url = new URL(window.location);
-                url.searchParams.set('category', cat);
-                window.history.pushState({}, '', url);
-
-                const filteredBooks = booksData.filter(b => b.category === cat);
-                renderBooks(filteredBooks);
-            });
-
-            li.appendChild(span);
-        } else {
-            const span = document.createElement("span");
-            span.textContent = cat.name;
-            span.className = "cursor-pointer font-semibold";
-            li.appendChild(span);
-
-            if(cat.sub && cat.sub.length > 0){
-                const subUl = document.createElement("ul");
-                subUl.className = "ml-4 hidden";
-                li.appendChild(subUl);
-                renderCategory(cat.sub, subUl);
-                span.addEventListener("click", () => subUl.classList.toggle("hidden"));
-            } else {
-                span.addEventListener("click", () => {
-                    const url = new URL(window.location);
-                    url.searchParams.set('category', cat.name);
-                    window.history.pushState({}, '', url);
-
-                    const filteredBooks = booksData.filter(b => b.category === cat.name);
-                    renderBooks(filteredBooks);
-                });
-            }
-        }
-
-        container.appendChild(li);
-    });
-}
-
-const ul = document.createElement("ul");
-catalogSidebar.appendChild(ul);
-renderCategory(categoryData, ul);
-
 // ---------- MODALS & INITIALIZATION ----------
 document.addEventListener("DOMContentLoaded",()=>{
     const cartIcon = document.getElementById("cart-icon");
@@ -214,30 +168,37 @@ document.addEventListener("DOMContentLoaded",()=>{
     const closeLikeBtn = document.getElementById("close-like");
     if(likeIcon && likeModal) likeIcon.addEventListener("click",()=>{renderLikeModal();likeModal.classList.remove("translate-x-full");});
     if(closeLikeBtn && likeModal) closeLikeBtn.addEventListener("click",()=>likeModal.classList.add("translate-x-full"));
+    
     updateCartCount();
     updateLikeCount();
 
     // URL query param varsa filtr tətbiq et
     const params = new URLSearchParams(window.location.search);
     const categoryFromURL = params.get('category');
-    if(categoryFromURL){
-        const filteredBooks = booksData.filter(b => b.category === categoryFromURL);
-        renderBooks(filteredBooks);
-    } else {
-        renderBooks(booksData);
-    }
-    searchInput.addEventListener("input", () => {
-  const query = searchInput.value.toLowerCase().trim();
-  const params = new URLSearchParams(window.location.search);
-  const categoryFromURL = params.get('category');
-  const filteredBooks = booksData.filter(book =>
-      (categoryFromURL ? book.category === categoryFromURL : true) &&
-      (book.name.toLowerCase().includes(query) ||
-       (book.author && book.author.toLowerCase().includes(query)))
-  );
-  renderBooks(filteredBooks);
-});
 
-    
-     
+    let filteredBooks = booksData;
+    if(categoryFromURL){
+        if(categoryFromURL.toLowerCase() === "endirimler"){
+            // Endirimli kitablar
+            filteredBooks = booksData.filter(b => {
+                const discount = parseInt(b.discount_percent);
+                return !isNaN(discount) && discount > 0;
+            });
+        } else {
+            filteredBooks = booksData.filter(b => b.category.toLowerCase() === categoryFromURL.toLowerCase());
+        }
+    }
+    renderBooks(filteredBooks);
+
+    // Search input funksiyası
+    if(searchInputMain){
+        searchInputMain.addEventListener("input", () => {
+            const query = searchInputMain.value.toLowerCase().trim();
+            const filtered = filteredBooks.filter(book =>
+                book.name.toLowerCase().includes(query) ||
+                (book.author && book.author.toLowerCase().includes(query))
+            );
+            renderBooks(filtered);
+        });
+    }
 });

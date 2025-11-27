@@ -6,127 +6,295 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kataloq</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-         .scrollbar-hide::-webkit-scrollbar {
-    display: none; 
-  }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
 
-  .scrollbar-hide {
-    -ms-overflow-style: none;  
-    scrollbar-width: none;     
-  }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 
 <body class="bg-gray-100">
+
     <!-- Header -->
     <header class="bg-white p-2 border-b border-gray-200 shadow-sm">
         <div class="container mx-auto flex justify-between items-center h-16">
             <a href="#" class="flex items-center p-2">
                 <img class="w-[120px]" src="https://bestsoft.az/uploaded/client/pic_365.png" alt="LIBRAFF Logo" />
             </a>
-            <div class="flex items-center space-x-4">
-                <div class="relative hidden lg:block w-[400px]">
-                    <input type="text" id="searchInputMain" placeholder="Növbəti kitabınızı axtarın" autocomplete="off"
-                        class="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-red-600" />
+<div id="catalog-sidebar-popup" class="hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+w-[900px] h-[600px] overflow-y-auto bg-white border border-gray-300 rounded-lg shadow-lg z-50 p-4">
+    <!-- JS render edəcək -->
+</div>
+            <!-- Search input (desktop) -->
+            <div class="relative hidden lg:block w-[400px]">
+                <input type="text" id="searchInputMain" placeholder="Növbəti kitabınızı axtarın" autocomplete="off"
+                    class="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-red-600" />
+            </div>
+
+            <div class="flex items-center space-x-4 text-gray-600">
+                <div class="relative">
+                    <svg id="like-icon" class="w-5 h-5 cursor-pointer" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                        </path>
+                    </svg>
+                    <span id="like-count"
+                        class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center">0</span>
                 </div>
-                <div class="flex items-center space-x-4 text-gray-600">
-                    <div class="relative">
-                        <svg id="like-icon" class="w-5 h-5 cursor-pointer" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
-                            </path>
-                        </svg>
-                        <span id="like-count"
-                            class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center">0</span>
-                    </div>
-                    <div class="relative">
-                        <svg id="cart-icon" class="w-5 h-5 cursor-pointer" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.183 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                            </path>
-                        </svg>
-                        <span id="cart-count"
-                            class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center">0</span>
-                    </div>
+                <div class="relative">
+                    <svg id="cart-icon" class="w-5 h-5 cursor-pointer" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.183 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                        </path>
+                    </svg>
+                    <span id="cart-count"
+                        class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center">0</span>
                 </div>
             </div>
+            
+            <button id="burgerBtn" class="lg:hidden block text-2xl p-2 rounded-lg" aria-label="Open menu">
+  ☰
+</button>
         </div>
     </header>
 
-    <div class="flex mt-4 px-4 gap-6">
-        <!-- Sidebar kataloq -->
-        <aside class="w-64 bg-white p-4 rounded shadow" id="catalog-sidebar">
-            <h2 class="font-bold mb-2">Janrlar</h2>
+    <div class="flex flex-col md:flex-row mt-4 px-4 gap-6">
+
+        <!-- Sidebar (desktop) -->
+        <aside class="relative h-auto overflow-y-auto w-full md:w-64 bg-white p-4 rounded shadow hidden md:block" id="catalog-sidebar">
+            <h2 class="font-bold mb-2">Kataloq</h2>
+      <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./catalog.html?category=Kitab">Kitab</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+         <span>Bədii ədəbiyyat</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <div class="flex flex-col">
+    <a href="./catalog.html?category=Antologiya">Antologiya</a>
+    <a href="./catalog.html?category=Dedektiv">Dedektiv</a>
+    <a href="./catalog.html?category=Elmi-fantastika%20%26%20Fantaziya">Elmi-fantastika & Fantaziya</a>
+    <a href="./catalog.html?category=Fəlsəfə">Fəlsəfə</a>
+    <a href="./catalog.html?category=Hekayələr%20%26%20Oçerklər">Hekayələr & Oçerklər</a>
+    <a href="./catalog.html?category=Kino və teatr">Kino və teatr</a>
+    <a href="./catalog.html?category=Klassik poemalar">Klassik poemalar</a>
+    <a href="./catalog.html?category=Klassiklər">Klassiklər</a>
+    <a href="./catalog.html?category=Mifologiya">Mifologiya</a>
+    <a href="./catalog.html?category=Poemalar">Poemalar</a>
+    <a href="./catalog.html?category=Romanlar%20%26%20Novellalar">Romanlar & Novellalar</a>
+    <a href="./catalog.html?category=Satira">Satira</a>
+    <a href="./catalog.html?category=Tarixi roman">Tarixi roman</a>
+    <a href="./catalog.html?category=Triller%2C%20mistika%20%26%20Qorxu">Triller, mistika & Qorxu</a>
+    </div>
+    </details>
+    <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+         <span>Qeyri-bədii ədəbiyyat</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <div class="flex flex-col">
+      <a href="./catalog.html?category=Bioqrafiya%2C%20avtobioqrafiya%20%26%20Xatirə">Bioqrafiya, avtobioqrafiya & Xatirə</a>
+      <a href="./catalog.html?category=Psixologiya">Psixologiya</a>
+      <a href="./catalog.html?category=Tarix%2C%20hüquq%20%26%20Siyasi">Tarix, hüquq & Siyasi</a>
+      <a href="./catalog.html?category=Təhsil%2C%20mənbə%20%26%20Dil">Təhsil, mənbə & Dil</a>
+    </div>
+    </details>
+    <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+         <span>Bədii uşaq ədəbiyyatı </span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <div class="flex flex-col">
+      <a href="./catalog.html?category=Nağıllar">Nağıllar</a>
+      <a href="./catalog.html?category=Komiks">Komiks</a>
+      <a href="./catalog.html?category=Macəra">Macəra</a>
+    </div>
+    </details>
+    </details>
+    <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./catalog.html?category=Elektronika%20%26%20aksessuar">Elektronika & aksessuar</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+    <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./catalog.html?category=Oyuncaqlar%20%26%20Oyunlar">Oyuncaqlar & Oyunlar</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+    <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./catalog.html?category=Dəftərxana">Dəftərxana</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+    <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./catalog.html?category=Hədiyyələr%20%26%20Hobbi">Hədiyyələr & Hobbi</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
         </aside>
+        <div id="burgerMenu" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50">
+  <div class="fixed overflow-y-auto top-0 right-0 bg-white w-3/4 h-full p-6 flex flex-col space-y-5 animate-slideIn">
+    
+    <!-- Bağlama düyməsi -->
+    <button id="closeBurger" class="text-2xl self-end mb-4">✕</button>
+
+    <!-- Əsas menyular -->
+    <a href="#" class="font-semibold text-gray-900 border-b-2 border-red-600 pb-2">
+      Bestseller - İyul
+    </a>
+    <a href="./catalog.html?category=Endirimler" class="text-gray-800">Endirimlər</a>
+    <a href="./authors.html" class="text-gray-800">Müəlliflər</a>
+    <a href="./catalog.html?category=Klassiklər" class="text-gray-800">Klassiklər</a>
+
+    <!-- Yeni əlavə: Kataloq bölməsi -->
+    <details class="group">
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Kataloq</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Kitab</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Bədii ədəbiyyat</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <summary class="list-none flex flex-col">
+    <a href="./pages/catalog.html?category=Antologiya">Antologiya</a>
+    <a href="./pages/catalog.html?category=Dedektiv">Dedektiv</a>
+    <a href="./pages/catalog.html?category=Elmi-fantastika%20%26%20Fantaziya">Elmi-fantastika & Fantaziya</a>
+    <a href="./pages/catalog.html?category=Fəlsəfə">Fəlsəfə</a>
+    <a href="./pages/catalog.html?category=Hekayələr%20%26%20Oçerklər">Hekayələr & Oçerklər</a>
+    <a href="./pages/catalog.html?category=Kino və teatr">Kino və teatr</a>
+    <a href="./pages/catalog.html?category=Klassik poemalar">Klassik poemalar</a>
+    <a href="./pages/catalog.html?category=Klassiklər">Klassiklər</a>
+    <a href="./pages/catalog.html?category=Mifologiya">Mifologiya</a>
+    <a href="./pages/catalog.html?category=Poemalar">Poemalar</a>
+    <a href="./pages/catalog.html?category=Romanlar%20%26%20Novellalar">Romanlar & Novellalar</a>
+    <a href="./pages/catalog.html?category=Satira">Satira</a>
+    <a href="./pages/catalog.html?category=Tarixi roman">Tarixi roman</a>
+    <a href="./pages/catalog.html?category=Triller%2C%20mistika%20%26%20Qorxu">Triller, mistika & Qorxu</a>
+    </summary>
+   
+    </details>
+    <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Qeyri-bədii ədəbiyyat</span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <summary class="list-none flex flex-col">
+      <a href="./pages/catalog.html?category=Bioqrafiya%2C%20avtobioqrafiya%20%26%20Xatirə">Bioqrafiya, avtobioqrafiya & Xatirə</a>
+      <a href="./pages/catalog.html?category=Psixologiya">Psixologiya</a>
+      <a href="./pages/catalog.html?category=Tarix%2C%20hüquq%20%26%20Siyasi">Tarix, hüquq & Siyasi</a>
+      <a href="./pages/catalog.html?category=Təhsil%2C%20mənbə%20%26%20Dil">Təhsil, mənbə & Dil</a>
+      </summary>
+    </details>
+    <details>
+      <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <span>Bədii uşaq ədəbiyyatı </span>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+      <summary class="list-none flex flex-col">
+      <a href="./pages/catalog.html?category=Nağıllar">Nağıllar</a>
+      <a href="./pages/catalog.html?category=Komiks">Komiks</a>
+      <a href="./pages/catalog.html?category=Macəra">Macəra</a>
+      </summary>
+    </details>
+    </details>
+    <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./pages/catalog.html?category=Elektronika%20%26%20aksessuar">Elektronika & aksessuar</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+    <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./pages/catalog.html?category=Oyuncaqlar%20%26%20Oyunlar">Oyuncaqlar & Oyunlar</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+    <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./pages/catalog.html?category=Dəftərxana">Dəftərxana</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+    <details class="pl-4 mt-2 flex flex-col space-y-2 text-gray-700">
+        <summary class="cursor-pointer font-semibold text-gray-900 mt-4 flex justify-between items-center">
+        📚 <a href="./pages/catalog.html?category=Hədiyyələr%20%26%20Hobbi">Hədiyyələr & Hobbi</a>
+        <span class="transition-transform duration-200 group-open:rotate-180">⌄</span>
+      </summary>
+    </details>
+
+      
+    </details>
+  </div>
+</div>
+<div id="catalog" class="grid grid-cols-3 gap-4"></div>
 
         <!-- Kitablar konteyneri -->
-        <main class="flex-1 grid grid-cols-4 gap-4" id="booksContainer">
+        <main class=" flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="booksContainer">
             <!-- Kitab kartları JS ilə buraya gələcək -->
         </main>
     </div>
 
     <!-- Cart Modal -->
     <div id="cart-modal"
-        class="fixed top-0 right-0 w-96 h-full bg-white shadow-lg p-4 transform translate-x-full transition-transform z-50 overflow-y-auto scrollbar-hide">
+        class="fixed top-0 right-0 w-full sm:w-96 h-full bg-white shadow-lg p-4 transform translate-x-full transition-transform z-50 overflow-y-auto scrollbar-hide">
         <button id="close-cart" class="mb-4">Bağla</button>
         <ul id="cart-list" class="space-y-2"></ul>
     </div>
 
     <!-- Like Modal -->
     <div id="like-modal"
-        class="fixed top-0 right-0 w-96 h-full bg-white shadow-lg p-4 transform translate-x-full transition-transform z-50 overflow-y-auto scrollbar-hide">
+        class="fixed top-0 right-0 w-full sm:w-96 h-full bg-white shadow-lg p-4 transform translate-x-full transition-transform z-50 overflow-y-auto scrollbar-hide">
         <button id="close-like" class="mb-4">Bağla</button>
         <ul id="like-list" class="space-y-2"></ul>
     </div>
+
+    <!-- Footer -->
     <footer class="bg-gray-50 py-10 px-4 md:px-8 border-t border-gray-200">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
                 <h3 class="font-bold mb-4 text-lg text-gray-800">Hesabım</h3>
                 <ul class="space-y-2 text-gray-600">
-                    <li>
-                        <a href="#" class="hover:text-blue-600 transition-colors">Daxil ol</a>
-                    </li>
-                    <li>
-                        <a href="#" class="hover:text-blue-600 transition-colors">Qeydiyyatdan keç</a>
-                    </li>
+                    <li><a href="#" class="hover:text-blue-600 transition-colors">Daxil ol</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition-colors">Qeydiyyatdan keç</a></li>
                 </ul>
             </div>
             <div>
                 <h3 class="font-bold mb-4 text-lg text-gray-800">Şirkət</h3>
                 <ul class="space-y-2 text-gray-600">
-                    <li>
-                        <a href="#" class="hover:text-blue-600 transition-colors">Haqqımızda</a>
-                    </li>
-                    <li>
-                        <a href="#" class="hover:text-blue-600 transition-colors">Əlaqə</a>
-                    </li>
-                    <li>
-                        <a href="#" class="hover:text-blue-600 transition-colors">Vakansiyalar</a>
-                    </li>
-                    <li>
-                        <a href="#" class="hover:text-blue-600 transition-colors">Sayt Xəritəsi</a>
-                    </li>
+                    <li><a href="#" class="hover:text-blue-600 transition-colors">Haqqımızda</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition-colors">Əlaqə</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition-colors">Vakansiyalar</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition-colors">Sayt Xəritəsi</a></li>
                 </ul>
             </div>
             <div>
                 <h3 class="font-bold mb-4 text-lg text-gray-800">Müştəri Xidməti</h3>
                 <ul class="space-y-2 text-gray-600">
-                    <li>
-                        <a href="#" class="hover:text-blue-600 transition-colors">Dəyişdirilmə və qaytarılma</a>
-                    </li>
-                    <li>
-                        <a href="#" class="hover:text-blue-600 transition-colors">Ödəniş və çatdırılma</a>
-                    </li>
-                    <li>
-                        <a href="#" class="hover:text-blue-600 transition-colors">Sifarişiniz haqqında</a>
-                    </li>
-                    <li>
-                        <a href="#" class="hover:text-blue-600 transition-colors">Seçilmişlər</a>
-                    </li>
+                    <li><a href="#" class="hover:text-blue-600 transition-colors">Dəyişdirilmə və qaytarılma</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition-colors">Ödəniş və çatdırılma</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition-colors">Sifarişiniz haqqında</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition-colors">Seçilmişlər</a></li>
                 </ul>
             </div>
             <div>
@@ -136,17 +304,17 @@
                     <p>(Badamdar Estates)</p>
                     <p>+994-50-290-44-96</p>
                     <p>B.e - B. 9:00 - 18:00</p>
-                    <p>
-                        <a href="mailto:online@ultraff.az" class="hover:underline">online@ultraff.az</a>
-                    </p>
+                    <p><a href="mailto:online@ultraff.az" class="hover:underline">online@ultraff.az</a></p>
                     <p><a href="#" class="hover:underline">Xəritədə bax</a></p>
                 </div>
             </div>
         </div>
     </footer>
+
     <script type="module" defer src="../js/catalog.js"></script>
     <script type="module" src="../js/search.js"></script>
-    <script>
+    <script type="module" src="../js/burger.js"></script>
+      <script>
         // ---------- SEARCH ----------
 const searchInput = document.getElementById("searchInputMain");
 
@@ -167,6 +335,52 @@ searchInput.addEventListener("input", () => {
 });
 
     </script>
+    <script>
+const books = [
+  // Sənin books array-i burada olacaq
+];
+
+// URL-dən category parametresini alırıq
+const urlParams = new URLSearchParams(window.location.search);
+const category = urlParams.get('category');
+
+let filteredBooks = [];
+
+if(category) {
+    if(category.toLowerCase() === 'endirimler'){
+        // Endirimli kitabları seçirik
+        filteredBooks = books.filter(book => {
+            const discount = parseInt(book.discount_percent);
+            return !isNaN(discount) && discount > 0;
+        });
+    } else {
+        // Normal kateqoriya filter
+        filteredBooks = books.filter(book => book.category.toLowerCase() === category.toLowerCase());
+    }
+} else {
+    filteredBooks = books; // Heç bir filter yoxdursa hamısı
+}
+
+// Kitabları ekrana yazdırmaq üçün sadə render
+const container = document.getElementById('book-container');
+if(container){
+    if(filteredBooks.length === 0){
+        container.innerHTML = '<p>Heç bir kitab tapılmadı</p>';
+    } else {
+        container.innerHTML = filteredBooks.map(book => `
+            <div class="book-card">
+                <img src="${book.image}" alt="${book.name}" />
+                <h3>${book.name}</h3>
+                <p>Author: ${book.author}</p>
+                <p>Price: ${book.price}₼</p>
+                <p>Discount: ${book.discount_percent}</p>
+                <a href="${book.product_url}" target="_blank">View</a>
+            </div>
+        `).join('');
+    }
+}
+</script>
+
 </body>
 
 </html>

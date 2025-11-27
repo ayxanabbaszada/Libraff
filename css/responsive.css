@@ -1,0 +1,162 @@
+/* === RESPONSIVE STYLES === */
+
+/* Mobil görünüş üçün ümumi düzəlişlər */
+@media (max-width: 1024px) {
+  header .container {
+    flex-wrap: wrap;
+  }
+
+  /* Axtarış inputunu gizlət */
+  header .lg\\:block {
+    display: none !important;
+  }
+
+  /* Kataloq düyməsini böyüt */
+  .header-catalog-button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  /* Like və Cart ikonları bir az aralı */
+  #like-icon, #cart-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+    margin: 0 4px;
+    position: relative;
+    top: 0;
+  }
+}
+
+/* Planşet görünüşü */
+@media (max-width: 768px) {
+  #slider {
+    height: 250px !important;
+  }
+
+  /* Header sətirə düşsün */
+  header .container {
+    display: flex;
+     align-items: center;     /* vertical center */
+    justify-content: space-between;
+  }
+
+  /* Menü tam gizlədilsin */
+  header .border-t {
+    display: none;
+  }
+
+  /* Hamburger menyu üçün yer */
+  .mobile-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: white;
+    width: 100%;
+    border-top: 1px solid #eee;
+  }
+
+  .mobile-menu.active {
+    display: flex;
+  }
+
+  .mobile-menu a {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  #books {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Telefon görünüşü */
+@media (max-width: 480px) {
+  #slider {
+    height: 180px !important;
+  }
+
+  #books {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
+
+  .header-catalog-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  #cart-icon, #like-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .p-2, .p-4 {
+    padding: 0.5rem !important;
+  }
+}
+/* --- Burger Menyu üçün --- */
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease forwards;
+}
+
+/* Mobil menyu görünüşü */
+#burgerMenu {
+  display: none;
+}
+
+#burgerMenu.active {
+  display: block !important;
+}
+/* Burger menyudakı linklərin üslubu */
+#burgerMenu a {
+  display: block;
+  color: #222;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 10px 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Hover effekti tamamilə silinir */
+#burgerMenu a:hover {
+  background: none !important;
+  color: #222 !important;
+  opacity: 1 !important;
+}
+
+/* Klik (touch) zamanı sadə effekt */
+#burgerMenu a:active {
+  opacity: 0.6;
+}
+
+/* Kiçik ekranlarda yazılar bir az kiçilsin */
+@media (max-width: 480px) {
+  #burgerMenu a {
+    font-size: 1rem;
+  }
+}
+
+/* Böyük telefonlar və planşetlər üçün bir az böyük olsun */
+@media (min-width: 768px) {
+  #burgerMenu a {
+    font-size: 1.25rem;
+  }
+}
